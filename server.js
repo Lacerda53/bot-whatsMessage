@@ -1,27 +1,10 @@
-const opn = require("opn");
 var fs = require('fs');
-
-const stdin = process.openStdin();
 const list = require("./listAcademic.json");
 
-stdin.setRawMode(true);
-stdin.resume();
-stdin.setEncoding("utf8");
-
-var interval = 5000;
-var finish = [];
-
-list.forEach((item, index) => {
-    setTimeout(function () {
-        opn(
-            `https://wa.me/55${item.telefone}?text=Olá ${item.nome}, tudo bem? nós somos da UNITPAC, gostariamos de dizer que você passou para o curso de ${item.curso}`
-        );
-        console.log(`Open link from ${item.nome}`);
-        finish.push({nome: item.nome, telefone: item.telefone, curso: item.curso})
-        if(index+1 == list.length){
-            var dictstring = JSON.stringify(finish);
-            fs.writeFileSync('listFinish.json', dictstring)
-        }
-    }, index * interval);
+list.Planilha1.forEach((item) => {
+    const message = `-----------------  ${item.CELULAR}  ------------------\nOlá ${item.CANDIDATO}\nBoa Tarde, Tudo Bem?\nVocê foi aprovado(a) no Vestibular Online referente ao curso de ${item['CURSO DE OPÇÃO']} do UNITPAC\nEu sou o Gildeão do UNITPAC, estou aqui para lhe auxiliar no processo de matricula online, vamos prosseguir?😀\n\n-------------------------------------------\n\n`
+    console.log(`ESCRITO:: ${item.CANDIDATO}`);
+    console.log(`-------------------------------`);
+    fs.appendFileSync('listFinish.txt', message)
 });
 

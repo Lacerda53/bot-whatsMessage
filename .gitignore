@@ -1,2 +1,5 @@
-# dependencies
+# dependencias
 /node_modules
+
+# arquivos gerados
+/listFinish.json
